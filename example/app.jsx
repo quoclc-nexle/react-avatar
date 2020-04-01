@@ -56,7 +56,7 @@ class App extends React.Component {
           <div className="col-2"/>
           <div className="col-5">
             <Avatar
-              width={390}
+              width={200}
               height={295}
               onCrop={this.onCropDefault}
               onClose={this.onCloseDefault}

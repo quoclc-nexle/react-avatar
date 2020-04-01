@@ -28,6 +28,7 @@
   ],
   "homepage": "https://github.com/kirill3333/react-avatar#readme",
   "dependencies": {
+    "browser-image-compression": "^1.0.9",
     "konva": "2.5.1"
   },
   "devDependencies": {

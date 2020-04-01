@@ -6,6 +6,11 @@ import 'konva/src/shapes/Rect'
 import 'konva/src/shapes/Path'
 import 'konva/src/Animation'
 import 'konva/src/DragAndDrop'
+import imageCompression from 'browser-image-compression'
+
+const MAX_FILE_SIZEMB = 1;
+const MAX_WIDTH_OR_HEIGHT = 1920;
+
 
 class Avatar extends React.Component {
 
@@ -174,28 +179,40 @@ class Avatar extends React.Component {
     })
   }
 
-  onFileLoad(e) {
+  onFileLoad = e => {
     e.preventDefault();
-
-    this.onBeforeFileLoadCallback(e);
-    if(!e.target.value) return;
-
-    let reader = new FileReader();
-    let file = e.target.files[0];
     
-    this.onFileLoadCallback(file);
+    if (!e.target.value) return;
+    
+    const file = e.target.files[0];
+    
+    const options = {
+      maxSizeMB: MAX_FILE_SIZEMB,
+      maxWidthOrHeight: MAX_WIDTH_OR_HEIGHT,
+      useWebWorker: true
+    }
+    imageCompression(file, options).then(compressedFile => {
+      this.onFileLoadCallback(compressedFile);
+      this.onBeforeFileLoadCallback(compressedFile);
 
-    const image = new Image();
-    const ref = this;
-    reader.onloadend = () => {
-      image.src = reader.result;
+      let reader = new FileReader();
 
-      ref.setState({ image, file, showLoader: false }, () => {
-        if (ref.image.complete) return ref.init();
-        ref.image.onload = () => ref.init()
-      })
-    };
-    reader.readAsDataURL(file)
+      const image = new Image();
+      const ref = this;
+      reader.onloadend = () => {
+        image.src = reader.result;
+
+        ref.setState({ image, compressedFile, showLoader: false }, () => {
+          if (ref.image.complete) return ref.init();
+          ref.image.onload = () => ref.init()
+        })
+      };
+      reader.readAsDataURL(compressedFile);
+      console.log('COMPRESSED FILE: ', compressedFile);
+    }).catch(e => {
+      console.log('ERROR ON AVATAR_EDIT');
+      console.error('Error in imageCompression');
+    });
   }
 
   onCloseClick() {
