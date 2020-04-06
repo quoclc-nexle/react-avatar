@@ -464,7 +464,8 @@ class Avatar extends React.Component {
       justifyContent: 'center',
       backgroundColor: this.backgroundColor,
       width: width || this.width,
-      position: 'relative'
+      position: 'relative',
+      overflowX: scroll,
     };
 
     const inputStyle = {
