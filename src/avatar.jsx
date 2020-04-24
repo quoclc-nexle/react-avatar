@@ -1,11 +1,11 @@
 import React from 'react'
-import Konva from 'konva/src/Core'
-import 'konva/src/shapes/Image'
-import 'konva/src/shapes/Circle'
-import 'konva/src/shapes/Rect'
-import 'konva/src/shapes/Path'
-import 'konva/src/Animation'
-import 'konva/src/DragAndDrop'
+import Konva from 'konva/lib/Core'
+import 'konva/lib/shapes/Image'
+import 'konva/lib/shapes/Circle'
+import 'konva/lib/shapes/Rect'
+import 'konva/lib/shapes/Path'
+import 'konva/lib/Animation'
+import 'konva/lib/DragAndDrop'
 import imageCompression from 'browser-image-compression'
 
 const MAX_FILE_SIZEMB = 1;
@@ -181,11 +181,11 @@ class Avatar extends React.Component {
 
   onFileLoad = e => {
     e.preventDefault();
-    
+
     if (!e.target.value) return;
-    
+
     const file = e.target.files[0];
-    
+
     const options = {
       maxSizeMB: MAX_FILE_SIZEMB,
       maxWidthOrHeight: MAX_WIDTH_OR_HEIGHT,
@@ -508,7 +508,7 @@ class Avatar extends React.Component {
                 style={inputStyle}
                 accept={this.mimeTypes}
               />
-              <label htmlFor={this.loaderId} style={labelStyle}>{label}</label>
+              <label htmlFor={this.loaderId} style={labelStyle}>+</label>
             </div>
             : <div style={style}>
               <svg
