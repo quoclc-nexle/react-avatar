@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from 'react'
 import Konva from 'konva/lib/Core'
 import 'konva/lib/shapes/Image'
